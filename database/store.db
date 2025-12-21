@@ -1,0 +1,31 @@
+import sqlite3
+
+conn = sqlite3.connect('database/store.db')
+c = conn.cursor()
+
+# Criar tabela de produtos
+c.execute('''
+CREATE TABLE IF NOT EXISTS produtos (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    nome TEXT,
+    descricao TEXT,
+    preco REAL,
+    imagem TEXT
+)
+''')
+
+# Criar tabela de pedidos
+c.execute('''
+CREATE TABLE IF NOT EXISTS pedidos (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    produtos TEXT
+)
+''')
+
+# Inserir produtos de exemplo
+c.execute("INSERT INTO produtos (nome, descricao, preco, imagem) VALUES ('Fone Bluetooth', 'Fone sem fio de alta qualidade', 150.0, 'fone.jpg')")
+c.execute("INSERT INTO produtos (nome, descricao, preco, imagem) VALUES ('Relógio Smart', 'Smartwatch com várias funções', 250.0, 'relogio.jpg')")
+c.execute("INSERT INTO produtos (nome, descricao, preco, imagem) VALUES ('Mochila Moderna', 'Mochila resistente e estilosa', 180.0, 'mochila.jpg')")
+
+conn.commit()
+conn.close()
