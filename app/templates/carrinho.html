@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>Carrinho</h1>
+{% if produtos %}
+<table class="table">
+    <thead>
+        <tr>
+            <th>Produto</th>
+            <th>Preço</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% set total = 0 %}
+        {% for produto in produtos %}
+        <tr>
+            <td>{{ produto['nome'] }}</td>
+            <td>R$ {{ produto['preco'] }}</td>
+        </tr>
+        {% set total = total + produto['preco'] %}
+        {% endfor %}
+        <tr>
+            <th>Total</th>
+            <th>R$ {{ total }}</th>
+        </tr>
+    </tbody>
+</table>
+<form method="POST" action="{{ url_for('main.checkout') }}">
+    <button type="submit" class="btn btn-primary">Finalizar Compra</button>
+</form>
+{% else %}
+<p>Seu carrinho está vazio.</p>
+{% endif %}
+{% endblock %}
